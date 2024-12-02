@@ -6,25 +6,25 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/wheelhouse-uploader-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/wheelhouse-uploader-{{ version }}.tar.gz
   sha256: c59bea8f2f09f4f845765e79a47442724e869aa552443cb312695040866e66fa
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
     - setuptools-markdown
   run:
     # - apache-libcloud ==2.2.1
     - apache-libcloud >=2.2,<3
     - certifi
     - packaging
-    - python >=3.6
+    - python >={{ python_min }}
     - setuptools >=0.9
 
 test:
@@ -35,6 +35,7 @@ test:
     # - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: http://github.com/ogrisel/wheelhouse-uploader
